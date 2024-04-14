@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper{
+    margin-left: auto;
+    margin-right: auto;
+    width: 700px;
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+p{
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+    padding-bottom: 20px;
+}
+
+.voteBlock{
+    display: flex;
+    justify-content: space-between;
+}
+
+.smileBloc{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.smileName{
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.winner{
+    margin-top: 50px;
+    text-align: center;
+    border-top: 1px solid black;
+    padding-top: 20px;
+    font-size: 50px;
+}
