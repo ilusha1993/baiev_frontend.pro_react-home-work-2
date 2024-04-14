@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './main.module.css';
 
-class Main extends React.Component{
+class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -9,9 +9,9 @@ class Main extends React.Component{
                 { name: "👦🏻", count: 0 },
                 { name: "👨🏾‍🦲", count: 0 },
                 { name: "👩🏼", count: 0 },
-            ]
+            ],
+            showResults: false
         };
-
     }
 
     handleVote = (index) => {
@@ -20,18 +20,13 @@ class Main extends React.Component{
         this.setState({ smiles: newSmiles });
     };
 
-    getWinner = () => {
-        let maxCount = 0;
-        let winnerName = "❔";
+    getWinners = () => {
+        const winners = this.state.smiles.filter(smile => smile.count === Math.max(...this.state.smiles.map(smile => smile.count))).map(smile => smile.name);
+        return winners.length ? winners : ["немає"];
+    };
 
-        this.state.smiles.forEach(smile => {
-            if (smile.count > maxCount) {
-                maxCount = smile.count;
-                winnerName = smile.name;
-            }
-        });
-
-        return winnerName;
+    toggleShowResults = () => {
+        this.setState(prevState => ({ showResults: !prevState.showResults }));
     };
 
     render() {
@@ -53,11 +48,28 @@ class Main extends React.Component{
                             </div>
                         ))}
                     </div>
-                    <div className={styles.winner}>Найбільше голосів: <br/>{this.getWinner()}</div>
+                    <button className={styles.btnResults} onClick={this.toggleShowResults}>Показати результати</button>
+                    {this.state.showResults && (
+                        <div className={styles.winnersBlock}>
+                            Найбільше голосів:
+                            <br/>
+                            <div className={styles.winners}>
+                                {this.state.smiles.some(smile => smile.count !== 0) ?
+                                    this.getWinners().map((winner, index) => (
+                                        <div key={index}>{winner}</div>
+                                    )) :
+                                    <div>❔</div>
+                                }
+                            </div>
+
+                        </div>
+                    )}
                 </div>
             </div>
-        )
+        );
     }
 }
 
-export default Main
+export default Main;
+
+
